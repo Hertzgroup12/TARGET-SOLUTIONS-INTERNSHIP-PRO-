@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Order System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(90deg, #ff0000 0%, #ff6347 50%, #ff4500 100%);
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .service-card.selected {
+            border-color: red;
+            background-color: #f0f5ff;
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: red;
+        }
+
+        .service-card h3 {
+            margin-bottom: 10px;
+            color: #182848;
+        }
+
+        .order-form {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .form-section {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .form-section h3 {
+            margin-bottom: 15px;
+            color: #182848;
+            display: flex;
+            align-items: center;
+        }
+
+        .form-section h3 i {
+            margin-right: 10px;
+            color: red;
+        }
+
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            flex: 1 1 300px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #444;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: red;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.2);
+        }
+
+        .color-picker {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .color-option {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: transform 0.2s;
+        }
+
+        .color-option:hover {
+            transform: scale(1.1);
+        }
+
+        .color-option.selected {
+            border-color: #333;
+        }
+
+        .measurement-inputs {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .delivery-options {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .delivery-option {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .delivery-card {
+            background: #f9f9f9;
+            border-radius: 8px;
+            padding: 15px;
+            border: 2px solid #ddd;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .delivery-card.selected {
+            border-color: red;
+            background: #ffe8e8;
+        }
+
+        .delivery-card h4 {
+            margin-bottom: 10px;
+            color: red;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 14px 30px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, #ff0000 0%, #ff6347 50%, #ff4500 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 0, 0, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        .order-summary {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #182848;
+            margin-top: 10px;
+            padding-top: 15px;
+            border-top: 2px solid #eee;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: red;
+            font-size: 0.9rem;
+        }
+
+        /* Mockup Preview Styles */
+        .mockup-section {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .mockup-section h3 {
+            margin-bottom: 20px;
+            color: #182848;
+            display: flex;
+            align-items: center;
+        }
+
+        .mockup-section h3 i {
+            margin-right: 10px;
+            color: red;
+        }
+
+        .mockup-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            align-items: flex-start;
+        }
+
+        .mockup-preview {
+            flex: 1;
+            min-width: 300px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .mockup-canvas {
+            width: 100%;
+            height: 300px;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mockup-tools {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .tool-group {
+            margin-bottom: 20px;
+        }
+
+        .tool-group h4 {
+            margin-bottom: 10px;
+            color: #182848;
+        }
+
+        .upload-area {
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 15px;
+        }
+
+        .upload-area:hover {
+            border-color: red;
+            background-color: #f9f9f9;
+        }
+
+        .upload-area i {
+            font-size: 2rem;
+            color: #888;
+            margin-bottom: 10px;
+        }
+
+        .text-tool input {
+            margin-bottom: 10px;
+        }
+
+        .mockup-options {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .mockup-option {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .mockup-option:hover {
+            transform: scale(1.05);
+        }
+
+        .mockup-option.selected {
+            border-color: red;
+        }
+
+        .mockup-option img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .text-properties {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .text-property {
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .mockup-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .mockup-btn {
+            padding: 8px 15px;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .mockup-btn:hover {
+            background: #e0e0e0;
+        }
+
+        .mockup-btn.primary {
+            background: red;
+            color: white;
+        }
+
+        .mockup-btn.primary:hover {
+            background: #cc0000;
+        }
+
+        @media (max-width: 768px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            .mockup-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Place Your Order</h1>
+            <p>Order embroidery, DTF, flyers, car branding, mug design, and more</p>
+        </header>
+
+        <div class="services-grid">
+            <div class="service-card" data-service="embroidery">
+                <div class="service-icon">
+                    <i class="fas fa-tshirt"></i>
+                </div>
+                <h3>Embroidery</h3>
+                <p>Custom embroidery on apparel and accessories</p>
+            </div>
+            
+            <div class="service-card" data-service="dtf">
+                <div class="service-icon">
+                    <i class="fas fa-print"></i>
+                </div>
+                <h3>DTF Printing</h3>
+                <p>Direct to Film printing for vibrant designs</p>
+            </div>
+            
+            <div class="service-card" data-service="flyers">
+                <div class="service-icon">
+                    <i class="fas fa-newspaper"></i>
+                </div>
+                <h3>Flyers & Brochures</h3>
+                <p>Professional printing for marketing materials</p>
+            </div>
+            
+            <div class="service-card" data-service="car-branding">
+                <div class="service-icon">
+                    <i class="fas fa-car"></i>
+                </div>
+                <h3>Car Branding</h3>
+                <p>Vehicle wraps and decals for promotion</p>
+            </div>
+            
+            <div class="service-card" data-service="mug-design">
+                <div class="service-icon">
+                    <i class="fas fa-mug-hot"></i>
+                </div>
+                <h3>Mug Design</h3>
+                <p>Custom printed mugs for gifts and promotions</p>
+            </div>
+            
+            <div class="service-card" data-service="other">
+                <div class="service-icon">
+                    <i class="fas fa-palette"></i>
+                </div>
+                <h3>Other Services</h3>
+                <p>Custom design and printing services</p>
+            </div>
+        </div>
+
+        <!-- Mockup Preview Section -->
+        <div class="mockup-section">
+            <h3><i class="fas fa-eye"></i> Design Preview</h3>
+            <div class="mockup-container">
+                <div class="mockup-preview">
+                    <div class="mockup-canvas" id="mockup-canvas">
+                        <!-- Preview will be rendered here -->
+                    </div>
+                    <div class="mockup-controls">
+                        <button class="mockup-btn" id="reset-design">Reset Design</button>
+                        <button class="mockup-btn primary" id="save-design">Save Design</button>
+                    </div>
+                </div>
+                <div class="mockup-tools">
+                    <div class="tool-group">
+                        <h4>Upload Your Design</h4>
+                        <div class="upload-area" id="upload-area">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Click to upload your design</p>
+                            <input type="file" id="design-upload" accept="image/*" style="display: none;">
+                        </div>
+                    </div>
+                    
+                    <div class="tool-group">
+                        <h4>Add Text</h4>
+                        <div class="text-tool">
+                            <input type="text" id="text-input" placeholder="Enter text here">
+                            <div class="text-properties">
+                                <div class="text-property">
+                                    <label>Font Size</label>
+                                    <select id="font-size">
+                                        <option value="16">Small</option>
+                                        <option value="24" selected>Medium</option>
+                                        <option value="32">Large</option>
+                                        <option value="48">X-Large</option>
+                                    </select>
+                                </div>
+                                <div class="text-property">
+                                    <label>Color</label>
+                                    <input type="color" id="text-color" value="#000000">
+                                </div>
+                            </div>
+                            <button class="mockup-btn" id="add-text">Add Text</button>
+                        </div>
+                    </div>
+                    
+                    <div class="tool-group">
+                        <h4>Mockup Options</h4>
+                        <div class="mockup-options">
+                            <div class="mockup-option selected" data-mockup="tshirt">
+                                <img src="https://via.placeholder.com/80x80/cccccc/ffffff?text=T-Shirt" alt="T-Shirt">
+                            </div>
+                            <div class="mockup-option" data-mockup="mug">
+                                <img src="https://via.placeholder.com/80x80/cccccc/ffffff?text=Mug" alt="Mug">
+                            </div>
+                            <div class="mockup-option" data-mockup="flyer">
+                                <img src="https://via.placeholder.com/80x80/cccccc/ffffff?text=Flyer" alt="Flyer">
+                            </div>
+                            <div class="mockup-option" data-mockup="car">
+                                <img src="https://via.placeholder.com/80x80/cccccc/ffffff?text=Car" alt="Car">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="order-form">
+            <div class="form-section">
+                <h3><i class="fas fa-clipboard-list"></i> Service Details</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="service-type">Selected Service</label>
+                        <input type="text" id="service-type" value="Select a service above" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="order-description">Order Description</label>
+                        <input type="text" id="order-description" placeholder="Brief description of your order">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3><i class="fas fa-ruler-combined"></i> Measurements & Specifications</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="size">Size/Format</label>
+                        <select id="size">
+                            <option value="">Select size/format</option>
+                            <optgroup label="Standard Sizes">
+                                <option value="small">Small (10x15cm)</option>
+                                <option value="medium">Medium (20x30cm)</option>
+                                <option value="large">Large (30x40cm)</option>
+                                <option value="x-large">Extra Large (50x70cm)</option>
+                            </optgroup>
+                            <optgroup label="Paper Sizes">
+                                <option value="a6">A6 (10.5x14.8cm)</option>
+                                <option value="a5">A5 (14.8x21cm)</option>
+                                <option value="a4">A4 (21x29.7cm)</option>
+                                <option value="a3">A3 (29.7x42cm)</option>
+                            </optgroup>
+                            <optgroup label="Apparel Sizes">
+                                <option value="xs">Extra Small</option>
+                                <option value="s">Small</option>
+                                <option value="m">Medium</option>
+                                <option value="l">Large</option>
+                                <option value="xl">Extra Large</option>
+                                <option value="xxl">Double Extra Large</option>
+                            </optgroup>
+                            <option value="custom">Custom Size</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="custom-size-group" style="display: none;">
+                        <label for="custom-size">Custom Size (cm)</label>
+                        <input type="text" id="custom-size" placeholder="e.g., 25x35">
+                    </div>
+                    <div class="form-group">
+                        <label for="material">Material Type</label>
+                        <select id="material">
+                            <option value="">Select material</option>
+                            <option value="cotton">Cotton</option>
+                            <option value="polyester">Polyester</option>
+                            <option value="vinyl">Vinyl</option>
+                            <option value="paper">Paper</option>
+                            <option value="ceramic">Ceramic</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="special-requirements">Special Requirements</label>
+                    <textarea id="special-requirements" rows="3" placeholder="Any special instructions or requirements"></textarea>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3><i class="fas fa-cubes"></i> Quantity</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="quantity">Number of Pieces</label>
+                        <select id="quantity">
+                            <option value="1">1</option>
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                            <option value="250">250</option>
+                            <option value="500">500</option>
+                            <option value="1000">1000</option>
+                            <option value="custom">Custom Quantity</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="custom-quantity-group" style="display: none;">
+                        <label for="custom-quantity">Custom Quantity</label>
+                        <input type="number" id="custom-quantity" min="1" placeholder="Enter quantity">
+                    </div>
+                    <div class="form-group">
+                        <label for="urgency">Urgency</label>
+                        <select id="urgency">
+                            <option value="standard">Standard (7-10 days)</option>
+                            <option value="express">Express (3-5 days)</option>
+                            <option value="rush">Rush (1-2 days)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3><i class="fas fa-palette"></i> Color Selection</h3>
+                <label>Select Primary Color</label>
+                <div class="color-picker">
+                    <div class="color-option" style="background-color: #ff0000;" data-color="Red"></div>
+                    <div class="color-option" style="background-color: #0000ff;" data-color="Blue"></div>
+                    <div class="color-option" style="background-color: #00ff00;" data-color="Green"></div>
+                    <div class="color-option" style="background-color: #ffff00;" data-color="Yellow"></div>
+                    <div class="color-option" style="background-color: #000000;" data-color="Black"></div>
+                    <div class="color-option" style="background-color: #ffffff; border: 1px solid #ddd;" data-color="White"></div>
+                    <div class="color-option" style="background-color: #ff00ff;" data-color="Magenta"></div>
+                    <div class="color-option" style="background-color: #00ffff;" data-color="Cyan"></div>
+                    <div class="color-option" style="background-color: #ffa500;" data-color="Orange"></div>
+                    <div class="color-option" style="background-color: #800080;" data-color="Purple"></div>
+                </div>
+                <div class="form-group" style="margin-top: 15px;">
+                    <label for="custom-color">Or select from additional colors</label>
+                    <select id="custom-color">
+                        <option value="">Select a color</option>
+                        <option value="Navy Blue">Navy Blue</option>
+                        <option value="Royal Blue">Royal Blue</option>
+                        <option value="Sky Blue">Sky Blue</option>
+                        <option value="Forest Green">Forest Green</option>
+                        <option value="Lime Green">Lime Green</option>
+                        <option value="Maroon">Maroon</option>
+                        <option value="Burgundy">Burgundy</option>
+                        <option value="Pink">Pink</option>
+                        <option value="Hot Pink">Hot Pink</option>
+                        <option value="Gold">Gold</option>
+                        <option value="Silver">Silver</option>
+                        <option value="Gray">Gray</option>
+                        <option value="Brown">Brown</option>
+                        <option value="Beige">Beige</option>
+                        <option value="Ivory">Ivory</option>
+                        <option value="Teal">Teal</option>
+                        <option value="Turquoise">Turquoise</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3><i class="fas fa-truck"></i> Delivery Information</h3>
+                <div class="delivery-options">
+                    <div class="delivery-option">
+                        <div class="delivery-card" data-delivery="pickup">
+                            <h4>Pickup</h4>
+                            <p>Collect your order from our store</p>
+                            <p><strong>Free</strong></p>
+                        </div>
+                    </div>
+                    <div class="delivery-option">
+                        <div class="delivery-card" data-delivery="standard">
+                            <h4>Standard Delivery</h4>
+                            <p>5-7 business days</p>
+                            <p><strong>GHC50.00</strong></p>
+                        </div>
+                    </div>
+                    <div class="delivery-option">
+                        <div class="delivery-card" data-delivery="express">
+                            <h4>Express Delivery</h4>
+                            <p>2-3 business days</p>
+                            <p><strong>GHC120.99</strong></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-row" style="margin-top: 20px;">
+                    <div class="form-group">
+                        <label for="delivery-address">Delivery Address (if applicable)</label>
+                        <textarea id="delivery-address" rows="2" placeholder="Enter full delivery address"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-secondary" id="reset-btn">Reset Form</button>
+                <button class="btn btn-primary" id="submit-btn">Submit Order</button>
+            </div>
+        </div>
+
+        <div class="order-summary">
+            <h3>Order Summary</h3>
+            <div class="summary-item">
+                <span>Service:</span>
+                <span id="summary-service">-</span>
+            </div>
+            <div class="summary-item">
+                <span>Size:</span>
+                <span id="summary-size">-</span>
+            </div>
+            <div class="summary-item">
+                <span>Material:</span>
+                <span id="summary-material">-</span>
+            </div>
+            <div class="summary-item">
+                <span>Quantity:</span>
+                <span id="summary-quantity">-</span>
+            </div>
+            <div class="summary-item">
+                <span>Color:</span>
+                <span id="summary-color">-</span>
+            </div>
+            <div class="summary-item">
+                <span>Delivery:</span>
+                <span id="summary-delivery">-</span>
+            </div>
+            <div class="summary-total">
+                <span>Estimated Total:</span>
+                <span id="summary-total">GHC0.00</span>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2023 Custom Order System. All rights reserved.</p>
+            <p>Contact us: targetsolution.com | (055) 456-8528</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Service selection
+            const serviceCards = document.querySelectorAll('.service-card');
+            const serviceTypeInput = document.getElementById('service-type');
+            
+            serviceCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    serviceCards.forEach(c => c.classList.remove('selected'));
+                    this.classList.add('selected');
+                    serviceTypeInput.value = this.querySelector('h3').textContent;
+                    updateSummary();
+                    
+                    // Update mockup based on selected service
+                    const service = this.getAttribute('data-service');
+                    updateMockupForService(service);
+                });
+            });
+            
+            // Color selection
+            const colorOptions = document.querySelectorAll('.color-option');
+            const customColorSelect = document.getElementById('custom-color');
+            let selectedColor = '';
+            
+            colorOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    colorOptions.forEach(o => o.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedColor = this.getAttribute('data-color');
+                    customColorSelect.value = '';
+                    updateSummary();
+                });
+            });
+            
+            customColorSelect.addEventListener('change', function() {
+                if (this.value) {
+                    colorOptions.forEach(o => o.classList.remove('selected'));
+                    selectedColor = this.value;
+                    updateSummary();
+                }
+            });
+            
+            // Delivery selection
+            const deliveryCards = document.querySelectorAll('.delivery-card');
+            
+            deliveryCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    deliveryCards.forEach(c => c.classList.remove('selected'));
+                    this.classList.add('selected');
+                    updateSummary();
+                });
+            });
+            
+            // Size selection - show custom size input when needed
+            const sizeSelect = document.getElementById('size');
+            const customSizeGroup = document.getElementById('custom-size-group');
+            
+            sizeSelect.addEventListener('change', function() {
+                if (this.value === 'custom') {
+                    customSizeGroup.style.display = 'block';
+                } else {
+                    customSizeGroup.style.display = 'none';
+                }
+                updateSummary();
+            });
+            
+            // Quantity selection - show custom quantity input when needed
+            const quantitySelect = document.getElementById('quantity');
+            const customQuantityGroup = document.getElementById('custom-quantity-group');
+            
+            quantitySelect.addEventListener('change', function() {
+                if (this.value === 'custom') {
+                    customQuantityGroup.style.display = 'block';
+                } else {
+                    customQuantityGroup.style.display = 'none';
+                }
+                updateSummary();
+            });
+            
+            // Form inputs that trigger summary update
+            const inputsToWatch = ['size', 'custom-size', 'material', 'urgency', 'custom-quantity'];
+            inputsToWatch.forEach(id => {
+                document.getElementById(id).addEventListener('input', updateSummary);
+            });
+            
+            // Reset button
+            document.getElementById('reset-btn').addEventListener('click', function() {
+                if (confirm('Are you sure you want to reset the form?')) {
+                    serviceCards.forEach(c => c.classList.remove('selected'));
+                    colorOptions.forEach(o => o.classList.remove('selected'));
+                    deliveryCards.forEach(c => c.classList.remove('selected'));
+                    document.querySelectorAll('input, select, textarea').forEach(element => {
+                        if (element.type !== 'button' && element.id !== 'submit-btn' && element.id !== 'reset-btn') {
+                            element.value = '';
+                        }
+                    });
+                    document.getElementById('quantity').value = '1';
+                    document.getElementById('urgency').value = 'standard';
+                    document.getElementById('size').value = '';
+                    serviceTypeInput.value = 'Select a service above';
+                    selectedColor = '';
+                    customSizeGroup.style.display = 'none';
+                    customQuantityGroup.style.display = 'none';
+                    updateSummary();
+                    
+                    // Reset mockup
+                    resetMockup();
+                }
+            });
+            
+            // Submit button
+            document.getElementById('submit-btn').addEventListener('click', function() {
+                if (!document.querySelector('.service-card.selected')) {
+                    alert('Please select a service');
+                    return;
+                }
+                
+                if (!selectedColor) {
+                    alert('Please select a color');
+                    return;
+                }
+                
+                if (!document.querySelector('.delivery-card.selected')) {
+                    alert('Please select a delivery option');
+                    return;
+                }
+                
+                alert('Order submitted successfully! We will contact you soon with a detailed quote.');
+            });
+            
+            // Update summary function
+            function updateSummary() {
+                // Service
+                const selectedService = document.querySelector('.service-card.selected');
+                document.getElementById('summary-service').textContent = selectedService ? 
+                    selectedService.querySelector('h3').textContent : '-';
+                
+                // Size
+                const sizeValue = document.getElementById('size').value;
+                let sizeText = '-';
+                if (sizeValue === 'custom') {
+                    sizeText = document.getElementById('custom-size').value || 'Custom';
+                } else if (sizeValue) {
+                    const sizeOptions = {
+                        'small': 'Small (10x15cm)',
+                        'medium': 'Medium (20x30cm)',
+                        'large': 'Large (30x40cm)',
+                        'x-large': 'Extra Large (50x70cm)',
+                        'a6': 'A6 (10.5x14.8cm)',
+                        'a5': 'A5 (14.8x21cm)',
+                        'a4': 'A4 (21x29.7cm)',
+                        'a3': 'A3 (29.7x42cm)',
+                        'xs': 'Extra Small',
+                        's': 'Small',
+                        'm': 'Medium',
+                        'l': 'Large',
+                        'xl': 'Extra Large',
+                        'xxl': 'Double Extra Large'
+                    };
+                    sizeText = sizeOptions[sizeValue] || sizeValue;
+                }
+                document.getElementById('summary-size').textContent = sizeText;
+                
+                // Material
+                const materialValue = document.getElementById('material').value;
+                document.getElementById('summary-material').textContent = materialValue || '-';
+                
+                // Quantity
+                let quantityValue = document.getElementById('quantity').value;
+                if (quantityValue === 'custom') {
+                    quantityValue = document.getElementById('custom-quantity').value || 'Custom';
+                }
+                document.getElementById('summary-quantity').textContent = quantityValue || '1';
+                
+                // Color
+                document.getElementById('summary-color').textContent = selectedColor || '-';
+                if (selectedColor) {
+                    document.getElementById('summary-color').style.color = getColorCode(selectedColor);
+                }
+                
+                // Delivery
+                const selectedDelivery = document.querySelector('.delivery-card.selected');
+                document.getElementById('summary-delivery').textContent = selectedDelivery ? 
+                    selectedDelivery.querySelector('h4').textContent : '-';
+                
+                // Calculate total
+                let total = 0;
+                
+                // Base price based on service
+                if (selectedService) {
+                    const service = selectedService.getAttribute('data-service');
+                    const basePrices = {
+                        'embroidery': 25,
+                        'dtf': 20,
+                        'flyers': 15,
+                        'car-branding': 150,
+                        'mug-design': 18,
+                        'other': 30
+                    };
+                    total += basePrices[service] || 0;
+                }
+                
+                // Add quantity multiplier
+                const quantityNum = quantityValue === 'custom' ? 1 : parseInt(quantityValue) || 1;
+                total *= quantityNum;
+                
+                // Add delivery cost
+                if (selectedDelivery) {
+                    const deliveryType = selectedDelivery.getAttribute('data-delivery');
+                    const deliveryCosts = {
+                        'pickup': 0,
+                        'standard': 50,
+                        'express': 120.99
+                    };
+                    total += deliveryCosts[deliveryType] || 0;
+                }
+                
+                // Urgency surcharge
+                const urgency = document.getElementById('urgency').value;
+                if (urgency === 'express') total += 25;
+                if (urgency === 'rush') total += 50;
+                
+                // Size multiplier
+                if (sizeValue === 'medium') total *= 1.2;
+                if (sizeValue === 'large') total *= 1.5;
+                if (sizeValue === 'x-large') total *= 2;
+                
+                document.getElementById('summary-total').textContent = 'GHC' + total.toFixed(2);
+            }
+            
+            // Helper function to get color code from color name
+            function getColorCode(colorName) {
+                const colorMap = {
+                    'Red': '#ff0000',
+                    'Blue': '#0000ff',
+                    'Green': '#00ff00',
+                    'Yellow': '#ffff00',
+                    'Black': '#000000',
+                    'White': '#ffffff',
+                    'Magenta': '#ff00ff',
+                    'Cyan': '#00ffff',
+                    'Orange': '#ffa500',
+                    'Purple': '#800080',
+                    'Navy Blue': '#000080',
+                    'Royal Blue': '#4169e1',
+                    'Sky Blue': '#87ceeb',
+                    'Forest Green': '#228b22',
+                    'Lime Green': '#32cd32',
+                    'Maroon': '#800000',
+                    'Burgundy': '#800020',
+                    'Pink': '#ffc0cb',
+                    'Hot Pink': '#ff69b4',
+                    'Gold': '#ffd700',
+                    'Silver': '#c0c0c0',
+                    'Gray': '#808080',
+                    'Brown': '#a52a2a',
+                    'Beige': '#f5f5dc',
+                    'Ivory': '#fffff0',
+                    'Teal': '#008080',
+                    'Turquoise': '#40e0d0'
+                };
+                return colorMap[colorName] || '#333';
+            }
+            
+            // Mockup functionality
+            const mockupCanvas = document.getElementById('mockup-canvas');
+            const uploadArea = document.getElementById('upload-area');
+            const designUpload = document.getElementById('design-upload');
+            const mockupOptions = document.querySelectorAll('.mockup-option');
+            const addTextBtn = document.getElementById('add-text');
+            const textInput = document.getElementById('text-input');
+            const fontSizeSelect = document.getElementById('font-size');
+            const textColorInput = document.getElementById('text-color');
+            const resetDesignBtn = document.getElementById('reset-design');
+            const saveDesignBtn = document.getElementById('save-design');
+            
+            let currentMockup = 'tshirt';
+            let uploadedImage = null;
+            let textElements = [];
+            
+            // Upload area click handler
+            uploadArea.addEventListener('click', function() {
+                designUpload.click();
+            });
+            
+            // Handle file upload
+            designUpload.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        uploadedImage = new Image();
+                        uploadedImage.onload = function() {
+                            renderMockup();
+                        };
+                        uploadedImage.src = event.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            // Mockup option selection
+            mockupOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    mockupOptions.forEach(o => o.classList.remove('selected'));
+                    this.classList.add('selected');
+                    currentMockup = this.getAttribute('data-mockup');
+                    renderMockup();
+                });
+            });
+            
+            // Add text button
+            addTextBtn.addEventListener('click', function() {
+                const text = textInput.value.trim();
+                if (text) {
+                    const textObj = {
+                        text: text,
+                        fontSize: fontSizeSelect.value + 'px',
+                        color: textColorInput.value,
+                        x: 50,
+                        y: 50
+                    };
+                    textElements.push(textObj);
+                    renderMockup();
+                    textInput.value = '';
+                }
+            });
+            
+            // Reset design
+            resetDesignBtn.addEventListener('click', function() {
+                uploadedImage = null;
+                textElements = [];
+                designUpload.value = '';
+                renderMockup();
+            });
+            
+            // Save design
+            saveDesignBtn.addEventListener('click', function() {
+                alert('Design saved! It will be included with your order.');
+            });
+            
+            // Render mockup
+            function renderMockup() {
+                mockupCanvas.innerHTML = '';
+                
+                // Create mockup container
+                const mockupImg = document.createElement('div');
+                mockupImg.className = 'mockup-img';
+                mockupImg.style.width = '100%';
+                mockupImg.style.height = '100%';
+                mockupImg.style.backgroundSize = 'contain';
+                mockupImg.style.backgroundRepeat = 'no-repeat';
+                mockupImg.style.backgroundPosition = 'center';
+                
+                // Set mockup background based on selection
+                const mockupImages = {
+                    'tshirt': 'https://via.placeholder.com/300x300/e0e0e0/ffffff?text=T-Shirt+Mockup',
+                    'mug': 'https://via.placeholder.com/300x300/e0e0e0/ffffff?text=Mug+Mockup',
+                    'flyer': 'https://via.placeholder.com/300x300/e0e0e0/ffffff?text=Flyer+Mockup',
+                    'car': 'https://via.placeholder.com/300x300/e0e0e0/ffffff?text=Car+Mockup'
+                };
+                
+                mockupImg.style.backgroundImage = `url('${mockupImages[currentMockup]}')`;
+                mockupCanvas.appendChild(mockupImg);
+                
+                // Add uploaded image if exists
+                if (uploadedImage) {
+                    const imgElement = document.createElement('img');
+                    imgElement.src = uploadedImage.src;
+                    imgElement.style.position = 'absolute';
+                    imgElement.style.top = '50%';
+                    imgElement.style.left = '50%';
+                    imgElement.style.transform = 'translate(-50%, -50%)';
+                    imgElement.style.maxWidth = '70%';
+                    imgElement.style.maxHeight = '70%';
+                    imgElement.style.objectFit = 'contain';
+                    mockupCanvas.appendChild(imgElement);
+                }
+                
+                // Add text elements
+                textElements.forEach(textObj => {
+                    const textElement = document.createElement('div');
+                    textElement.textContent = textObj.text;
+                    textElement.style.position = 'absolute';
+                    textElement.style.left = textObj.x + 'px';
+                    textElement.style.top = textObj.y + 'px';
+                    textElement.style.fontSize = textObj.fontSize;
+                    textElement.style.color = textObj.color;
+                    textElement.style.cursor = 'move';
+                    textElement.style.userSelect = 'none';
+                    
+                    // Make text draggable
+                    makeElementDraggable(textElement);
+                    
+                    mockupCanvas.appendChild(textElement);
+                });
+            }
+            
+            // Make elements draggable
+            function makeElementDraggable(element) {
+                let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+                
+                element.onmousedown = dragMouseDown;
+                
+                function dragMouseDown(e) {
+                    e.preventDefault();
+                    // Get the mouse cursor position at startup
+                    pos3 = e.clientX;
+                    pos4 = e.clientY;
+                    document.onmouseup = closeDragElement;
+                    // Call a function whenever the cursor moves
+                    document.onmousemove = elementDrag;
+                }
+                
+                function elementDrag(e) {
+                    e.preventDefault();
+                    // Calculate the new cursor position
+                    pos1 = pos3 - e.clientX;
+                    pos2 = pos4 - e.clientY;
+                    pos3 = e.clientX;
+                    pos4 = e.clientY;
+                    // Set the element's new position
+                    element.style.top = (element.offsetTop - pos2) + "px";
+                    element.style.left = (element.offsetLeft - pos1) + "px";
+                }
+                
+                function closeDragElement() {
+                    // Stop moving when mouse button is released
+                    document.onmouseup = null;
+                    document.onmousemove = null;
+                }
+            }
+            
+            // Update mockup based on selected service
+            function updateMockupForService(service) {
+                const serviceToMockupMap = {
+                    'embroidery': 'tshirt',
+                    'dtf': 'tshirt',
+                    'flyers': 'flyer',
+                    'car-branding': 'car',
+                    'mug-design': 'mug',
+                    'other': 'tshirt'
+                };
+                
+                const targetMockup = serviceToMockupMap[service] || 'tshirt';
+                
+                mockupOptions.forEach(option => {
+                    if (option.getAttribute('data-mockup') === targetMockup) {
+                        option.click();
+                    }
+                });
+            }
+            
+            // Reset mockup
+            function resetMockup() {
+                uploadedImage = null;
+                textElements = [];
+                designUpload.value = '';
+                currentMockup = 'tshirt';
+                
+                mockupOptions.forEach(option => {
+                    option.classList.remove('selected');
+                    if (option.getAttribute('data-mockup') === 'tshirt') {
+                        option.classList.add('selected');
+                    }
+                });
+                
+                renderMockup();
+            }
+            
+            // Initialize summary and mockup
+            updateSummary();
+            renderMockup();
+        });
+    </script>
+</body>
+</html>

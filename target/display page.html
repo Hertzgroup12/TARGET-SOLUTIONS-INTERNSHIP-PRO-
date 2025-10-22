@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Print & Design Services</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            color: red;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 20px;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-icon {
+            background: red;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .card-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .card-content p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .features {
+            list-style-type: none;
+            margin-bottom: 20px;
+        }
+
+        .features li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+
+        .features li:last-child {
+            border-bottom: none;
+        }
+
+        .features i {
+            color: red;
+            margin-right: 10px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: red;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            margin-top: auto;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+            background: darkred;
+        }
+
+        .testimonials {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 40px;
+            margin: 50px 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .testimonials h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+            font-size: 2rem;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .testimonial {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .testimonial p {
+            font-style: italic;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .client {
+            display: flex;
+            align-items: center;
+        }
+
+        .client img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+
+        .client-info h4 {
+            margin-bottom: 5px;
+        }
+
+        .client-info span {
+            color: red;
+            font-size: 0.9rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #333;
+            margin-top: 40px;
+            border-top: 1px solid #eee;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-item i {
+            font-size: 1.2rem;
+            color: red;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .testimonials {
+                padding: 25px;
+                margin: 30px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Print & Design Services</h1>
+            <p>Professional printing and design solutions for all your business and personal needs</p>
+        </header>
+
+        <div class="services-grid">
+            <!-- Banner Design & Printing -->
+            <div class="service-card">
+                <div class="card-icon">
+                    <i class="fas fa-flag"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Banner Design & Printing</h3>
+                    <p>Eye-catching banners for events, promotions, and business advertising. High-quality printing on various materials.</p>
+                    <ul class="features">
+                        <li><i class="fas fa-check"></i> Indoor & Outdoor Banners</li>
+                        <li><i class="fas fa-check"></i> Retractable & Pull-up Banners</li>
+                        <li><i class="fas fa-check"></i> Vinyl & Fabric Materials</li>
+                        <li><i class="fas fa-check"></i> Custom Sizes & Designs</li>
+                    </ul>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+            </div>
+
+            <!-- DTF Printing -->
+            <div class="service-card">
+                <div class="card-icon">
+                    <i class="fas fa-tshirt"></i>
+                </div>
+                <div class="card-content">
+                    <h3>DTF Printing</h3>
+                    <p>Direct to Film printing for vibrant, durable designs on various fabrics and materials.</p>
+                    <ul class="features">
+                        <li><i class="fas fa-check"></i> Full Color Printing</li>
+                        <li><i class="fas fa-check"></i> Soft Hand Feel</li>
+                        <li><i class="fas fa-check"></i> Wash & Fade Resistant</li>
+                        <li><i class="fas fa-check"></i> No Minimum Order</li>
+                    </ul>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+            </div>
+
+            <!-- Mug Printing -->
+            <div class="service-card">
+                <div class="card-icon">
+                    <i class="fas fa-mug-hot"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Mug Printing</h3>
+                    <p>Custom printed mugs for promotions, gifts, or personal use. High-quality, dishwasher-safe prints.</p>
+                    <ul class="features">
+                        <li><i class="fas fa-check"></i> Full Wrap Designs</li>
+                        <li><i class="fas fa-check"></i> Ceramic & Travel Mugs</li>
+                        <li><i class="fas fa-check"></i> Photo & Logo Printing</li>
+                        <li><i class="fas fa-check"></i> Bulk Order Discounts</li>
+                    </ul>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+            </div>
+
+            <!-- Caps & Headwear -->
+            <div class="service-card">
+                <div class="card-icon">
+                    <i class="fas fa-hat-cowboy"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Caps & Headwear</h3>
+                    <p>Custom embroidered or printed caps for teams, businesses, and events.</p>
+                    <ul class="features">
+                        <li><i class="fas fa-check"></i> Embroidery & Printing</li>
+                        <li><i class="fas fa-check"></i> Various Styles & Colors</li>
+                        <li><i class="fas fa-check"></i> Adjustable & Fitted Options</li>
+                        <li><i class="fas fa-check"></i> Quick Turnaround</li>
+                    </ul>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+            </div>
+
+            <!-- Tags & Labels -->
+            <div class="service-card">
+                <div class="card-icon">
+                    <i class="fas fa-tags"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Tags & Labels</h3>
+                    <p>Professional tags and labels for branding, pricing, and product information.</p>
+                    <ul class="features">
+                        <li><i class="fas fa-check"></i> Custom Shapes & Sizes</li>
+                        <li><i class="fas fa-check"></i> Paper, Plastic & Fabric</li>
+                        <li><i class="fas fa-check"></i> Barcodes & QR Codes</li>
+                        <li><i class="fas fa-check"></i> Weather Resistant Options</li>
+                    </ul>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+            </div>
+
+            <!-- Embroidery -->
+            <div class="service-card">
+                <div class="card-icon">
+                    <i class="fas fa-vest"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Embroidery</h3>
+                    <p>High-quality embroidery services for uniforms, corporate wear, and promotional items.</p>
+                    <ul class="features">
+                        <li><i class="fas fa-check"></i> Logo & Text Embroidery</li>
+                        <li><i class="fas fa-check"></i> Various Thread Colors</li>
+                        <li><i class="fas fa-check"></i> Apparel & Accessories</li>
+                        <li><i class="fas fa-check"></i> Digitizing Services</li>
+                    </ul>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+            </div>
+
+            <!-- Car Branding -->
+            <div class="service-card">
+                <div class="card-icon">
+                    <i class="fas fa-car"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Car Branding</h3>
+                    <p>Professional vehicle wraps and graphics to transform your car into a mobile advertisement.</p>
+                    <ul class="features">
+                        <li><i class="fas fa-check"></i> Full & Partial Wraps</li>
+                        <li><i class="fas fa-check"></i> Vinyl Graphics & Lettering</li>
+                        <li><i class="fas fa-check"></i> UV & Weather Resistant</li>
+                        <li><i class="fas fa-check"></i> Professional Installation</li>
+                    </ul>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+            </div>
+
+            <!-- Pull-up Banners -->
+            <div class="service-card">
+                <div class="card-icon">
+                    <i class="fas fa-scroll"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Pull-up Banners</h3>
+                    <p>Portable and professional pull-up banners for trade shows, exhibitions, and retail spaces.</p>
+                    <ul class="features">
+                        <li><i class="fas fa-check"></i> Easy Setup & Transport</li>
+                        <li><i class="fas fa-check"></i> Various Sizes Available</li>
+                        <li><i class="fas fa-check"></i> Double-sided Printing</li>
+                        <li><i class="fas fa-check"></i> Durable Carry Cases</li>
+                    </ul>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+            </div>
+
+            <!-- Sticker Printing -->
+            <div class="service-card">
+                <div class="card-icon">
+                    <i class="fas fa-sticky-note"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Sticker Printing</h3>
+                    <p>Custom stickers for branding, packaging, or decorative purposes in various shapes and materials.</p>
+                    <ul class="features">
+                        <li><i class="fas fa-check"></i> Die-cut & Kiss-cut Options</li>
+                        <li><i class="fas fa-check"></i> Vinyl & Paper Materials</li>
+                        <li><i class="fas fa-check"></i> Waterproof & UV Resistant</li>
+                        <li><i class="fas fa-check"></i> Bulk Pricing Available</li>
+                    </ul>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+            </div>
+
+            <!-- T-Shirt Printing -->
+            <div class="service-card">
+                <div class="card-icon">
+                    <i class="fas fa-tshirt"></i>
+                </div>
+                <div class="card-content">
+                    <h3>T-Shirt Printing</h3>
+                    <p>Custom t-shirt printing for events, teams, businesses, and personal use with various printing methods.</p>
+                    <ul class="features">
+                        <li><i class="fas fa-check"></i> Screen Printing & DTF</li>
+                        <li><i class="fas fa-check"></i> All Sizes & Colors</li>
+                        <li><i class="fas fa-check"></i> Bulk Order Discounts</li>
+                        <li><i class="fas fa-check"></i> Quick Turnaround</li>
+                    </ul>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+            </div>
+
+            <!-- Business Cards -->
+            <div class="service-card">
+                <div class="card-icon">
+                    <i class="fas fa-address-card"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Business Cards</h3>
+                    <p>Professional business card printing with various finishes and paper stocks to make your first impression count.</p>
+                    <ul class="features">
+                        <li><i class="fas fa-check"></i> Matte & Glossy Finishes</li>
+                        <li><i class="fas fa-check"></i> Spot UV & Foil Stamping</li>
+                        <li><i class="fas fa-check"></i> Rounded Corners</li>
+                        <li><i class="fas fa-check"></i> Next Day Printing</li>
+                    </ul>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+            </div>
+
+            <!-- Flyers & Brochures -->
+            <div class="service-card">
+                <div class="card-icon">
+                    <i class="fas fa-newspaper"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Flyers & Brochures</h3>
+                    <p>High-quality flyers and brochures for marketing campaigns, events, and product promotions.</p>
+                    <ul class="features">
+                        <li><i class="fas fa-check"></i> Single & Double Sided</li>
+                        <li><i class="fas fa-check"></i> Various Paper Weights</li>
+                        <li><i class="fas fa-check"></i> Folding Options</li>
+                        <li><i class="fas fa-check"></i> Bulk Printing Discounts</li>
+                    </ul>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="testimonials">
+            <h2>What Our Clients Say</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial">
+                    <p>"The banner printing service was exceptional! Our event banners looked professional and attracted many visitors."</p>
+                    <div class="client">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Client">
+                        <div class="client-info">
+                            <h4>Sarah Johnson</h4>
+                            <span>Design Lead</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <p>"We ordered custom mugs for our company, and the quality exceeded our expectations. Will definitely order again!"</p>
+                    <div class="client">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Client">
+                        <div class="client-info">
+                            <h4>Michael Chen</h4>
+                            <span>Marketing Director</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <p>"The DTF printing on our team uniforms was vibrant and durable. Great service and quick turnaround!"</p>
+                    <div class="client">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Client">
+                        <div class="client-info">
+                            <h4>Jessica Williams</h4>
+                            <span>Team Coordinator</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <p>"The car branding service transformed our company vehicles into eye-catching mobile ads. Professional installation and great quality!"</p>
+                    <div class="client">
+                        <img src="https://randomuser.me/api/portraits/men/65.jpg" alt="Client">
+                        <div class="client-info">
+                            <h4>David Brown</h4>
+                            <span>Business Owner</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>(055) 456-8528</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>info@targetsolution.com</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Target Solution, Ghana</span>
+                </div>
+            </div>
+            <p>&copy; 2025 Print & Design Services. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>

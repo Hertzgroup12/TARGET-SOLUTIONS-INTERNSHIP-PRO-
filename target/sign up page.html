@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 450px;
+        }
+        
+        .signup-form {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            width: 100%;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo h1 {
+            color: red;
+            font-size: 28px;
+            font-weight: 700;
+        }
+        
+        .logo p {
+            color: #666;
+            margin-top: 8px;
+            font-size: 15px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #444;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #2575fc;
+            box-shadow: 0 0 0 2px rgba(37, 117, 252, 0.2);
+        }
+        
+        .form-group.error input {
+            border-color: #e74c3c;
+        }
+        
+        .error-message {
+            color: #e74c3c;
+            font-size: 13px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .form-group.error .error-message {
+            display: block;
+        }
+        
+        .password-strength {
+            height: 4px;
+            background-color: #eee;
+            border-radius: 2px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+        
+        .password-strength-bar {
+            height: 100%;
+            width: 0;
+            transition: width 0.3s, background-color 0.3s;
+        }
+        
+        .terms {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+        }
+        
+        .terms input {
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+        
+        .terms label {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.4;
+        }
+        
+        .terms a {
+            color: #2575fc;
+            text-decoration: none;
+        }
+        
+        .terms a:hover {
+            text-decoration: underline;
+        }
+        
+        .btn {
+            background: linear-gradient(90deg, #ff0000 0%, #ff6347 50%, #ff4500 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 117, 252, 0.4);
+        }
+        
+        .login-link {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 15px;
+            color: #555;
+        }
+        
+        .login-link a {
+            color: #2575fc;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 480px) {
+            .signup-form {
+                padding: 30px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form class="signup-form" id="signupForm">
+            <div class="logo">
+                <h1>Create Account</h1>
+                <p>Let's bring your brand to life</p>
+            </div>
+            
+            <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" placeholder="Enter your full name">
+                <div class="error-message">Please enter your full name</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="Enter your email">
+                <div class="error-message">Please enter a valid email address</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Create a password">
+                <div class="password-strength">
+                    <div class="password-strength-bar" id="passwordStrength"></div>
+                </div>
+                <div class="error-message">Password must be at least 8 characters</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" placeholder="Confirm your password">
+                <div class="error-message">Passwords do not match</div>
+            </div>
+            
+            <div class="terms">
+                <input type="checkbox" id="agreeTerms">
+                <label for="agreeTerms">I agree to the <a href="#">Terms of Service</a> and <a href="">Privacy Policy</a></label>
+            </div>
+            
+            <a href="file:///D:/webdev/oder%20page.html"><button type="submit" class="btn" >Create Account</button></a>
+            
+            <div class="login-link">
+                Already have an account? <a href="file:///D:/webdev/LOG-IN.html">Log in</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Reset previous errors
+            const formGroups = document.querySelectorAll('.form-group');
+            formGroups.forEach(group => {
+                group.classList.remove('error');
+            });
+            
+            let isValid = true;
+            
+            // Validate full name
+            const fullName = document.getElementById('fullName').value.trim();
+            if (fullName === '') {
+                document.querySelector('#fullName').parentElement.classList.add('error');
+                isValid = false;
+            }
+            
+            // Validate email
+            const email = document.getElementById('email').value.trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                document.querySelector('#email').parentElement.classList.add('error');
+                isValid = false;
+            }
+            
+            // Validate password
+            const password = document.getElementById('password').value;
+            if (password.length < 8) {
+                document.querySelector('#password').parentElement.classList.add('error');
+                isValid = false;
+            }
+            
+            // Validate confirm password
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            if (password !== confirmPassword) {
+                document.querySelector('#confirmPassword').parentElement.classList.add('error');
+                isValid = false;
+            }
+            
+            // Validate terms agreement
+            const agreeTerms = document.getElementById('agreeTerms').checked;
+            if (!agreeTerms) {
+                alert('Please agree to the Terms of Service and Privacy Policy');
+                isValid = false;
+            }
+            
+            if (isValid) {
+                alert('Account created successfully!');
+                // In a real application, you would submit the form to a server here
+            }
+        });
+        
+        // Password strength indicator
+        document.getElementById('password').addEventListener('input', function() {
+            const password = this.value;
+            const strengthBar = document.getElementById('passwordStrength');
+            let strength = 0;
+            
+            if (password.length >= 8) strength += 25;
+            if (/[A-Z]/.test(password)) strength += 25;
+            if (/[0-9]/.test(password)) strength += 25;
+            if (/[^A-Za-z0-9]/.test(password)) strength += 25;
+            
+            strengthBar.style.width = strength + '%';
+            
+            if (strength < 50) {
+                strengthBar.style.backgroundColor = '#e74c3c';
+            } else if (strength < 75) {
+                strengthBar.style.backgroundColor = '#f39c12';
+            } else {
+                strengthBar.style.backgroundColor = '#2ecc71';
+            }
+        });
+    </script>
+</body>
+</html>
