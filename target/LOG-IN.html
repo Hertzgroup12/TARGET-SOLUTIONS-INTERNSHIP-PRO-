@@ -4,230 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In - Your Account</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background:white;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .container {
-            display: flex;
-            max-width: 900px;
-            width: 100%;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-        }
-
-        .left-panel {
-            flex: 1;
-            background: linear-gradient(90deg, #ff0000 0%, #ff6347 50%, #ff4500 100%);
-            color: white;
-            padding: 50px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-
-        .left-panel h2 {
-        	  color: white;
-            font-size: 2rem;
-            margin-bottom: 20px;
-        }
-
-        .left-panel p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            line-height: 1.6;
-        }
-
-        .right-panel {
-            flex: 1;
-            padding: 50px;
-        }
-
-        .logo {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .logo h1 {
-            color: red;
-            font-size: 2rem;
-            font-weight: 700;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #555;
-            font-weight: 600;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e1e1e1;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: all 0.3s ease;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        .remember-forgot {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-        }
-
-        .remember-me {
-            display: flex;
-            align-items: center;
-        }
-
-        .remember-me input {
-            margin-right: 8px;
-        }
-
-        .forgot-password {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .forgot-password:hover {
-            text-decoration: underline;
-        }
-
-        .signin-btn {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(90deg, #ff0000 0%, #ff6347 50%, #ff4500 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s ease;
-        }
-
-        .signin-btn:hover {
-            transform: translateY(-2px);
-        }
-
-        .signin-btn:active {
-            transform: translateY(0);
-        }
-
-        .separator {
-            text-align: center;
-            margin: 25px 0;
-            position: relative;
-            color: #777;
-        }
-
-        .separator::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: #e1e1e1;
-        }
-
-        .separator span {
-            background: white;
-            padding: 0 15px;
-        }
-
-        .social-login {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .social-btn {
-            flex: 1;
-            padding: 12px;
-            border: 2px solid #e1e1e1;
-            border-radius: 8px;
-            background: white;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .social-btn:hover {
-            border-color: #667eea;
-            transform: translateY(-1px);
-        }
-
-        .signup-link {
-            text-align: center;
-            color: #666;
-        }
-
-        .signup-link a {
-            color: red;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .signup-link a:hover {
-            text-decoration: underline;
-        }
-
-        .error-message {
-            color: #e74c3c;
-            font-size: 14px;
-            margin-top: 5px;
-            display: none;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-            }
-            
-            .left-panel {
-                padding: 30px;
-            }
-            
-            .right-panel {
-                padding: 30px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./styles/login.css">
 </head>
 <body>
     <div class="container">
@@ -252,7 +30,12 @@
 
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                    <div class="password-input-container">
+                        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                        <span class="toggle-password" onclick="togglePasswordVisibility('password')">
+                            <i class="eye-icon fas fa-eye"></i>
+                        </span>
+                    </div>
                     <div class="error-message" id="passwordError">Password must be at least 6 characters</div>
                 </div>
 
@@ -264,8 +47,12 @@
                     <a href="#" class="forgot-password">Forgot password?</a>
                 </div>
 
-                <button type="submit" class="signin-btn"><a href = "file:///D:/webdev/oder%20page.htmlsignin-btn" color: White> Sign In </a>
-                </button>
+                <div class="signin-btn-container">
+                    <button type="submit" class="signin-btn" id="signinBtn">
+                        <span class="btn-text">Sign In</span>
+                        <span class="spinner" id="loginSpinner"></span>
+                    </button>
+                </div>
             </form>
 
             <div class="separator">
@@ -282,66 +69,35 @@
             </div>
 
             <div class="signup-link">
-                Don't have an account? <a href="file:///D:/webdev/sign%20up%20page.html">Sign up here</a>
+                Don't have an account? <a href="./sign up page.html">Sign up here</a>
             </div>
         </div>
     </div>
 
+    <!-- Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <p id="modalMessage"></p>
+        </div>
+    </div>
+
     <script>
-        document.getElementById('signinForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        function togglePasswordVisibility(fieldId) {
+            const passwordField = document.getElementById(fieldId);
+            const toggleIcon = document.querySelector(`#${fieldId} + .toggle-password .eye-icon`);
             
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const emailError = document.getElementById('emailError');
-            const passwordError = document.getElementById('passwordError');
-            
-            let isValid = true;
-            
-            // Email validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                emailError.style.display = 'block';
-                isValid = false;
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
             } else {
-                emailError.style.display = 'none';
+                passwordField.type = 'password';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
             }
-            
-            // Password validation
-            if (password.length < 6) {
-                passwordError.style.display = 'block';
-                isValid = false;
-            } else {
-                passwordError.style.display = 'none';
-            }
-            
-            if (isValid) {
-                // Here you would typically send the data to your server
-                console.log('Form submitted successfully!');
-                console.log('Email:', email);
-                console.log('Password:', password);
-                
-                // Show success message (in real app, you'd redirect or show proper feedback)
-                alert('Sign in successful! Redirecting...');
-                
-                // Reset form
-                this.reset();
-            }
-        });
-
-        // Real-time validation
-        document.getElementById('email').addEventListener('input', function() {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (emailRegex.test(this.value)) {
-                document.getElementById('emailError').style.display = 'none';
-            }
-        });
-
-        document.getElementById('password').addEventListener('input', function() {
-            if (this.value.length >= 6) {
-                document.getElementById('passwordError').style.display = 'none';
-            }
-        });
+        }
     </script>
+    <script src="./logic/login.js"></script>
 </body>
 </html>

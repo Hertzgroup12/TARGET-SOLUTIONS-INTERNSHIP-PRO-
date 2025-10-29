@@ -7,16 +7,19 @@ A comprehensive web platform for a print and design business offering custom pri
 ## 🌟 Features
 
 ### 🎨 **Service Showcase**
+
 - **12+ Printing Services**: Banner design, DTF printing, mug printing, caps & headwear, tags & labels, embroidery, car branding, pull-up banners, sticker printing, t-shirt printing, business cards, and flyers & brochures
 - **Interactive Service Cards**: Hover effects and detailed service descriptions
 - **Professional Design**: Red-themed modern UI with responsive layout
 
 ### 🔐 **User Authentication**
+
 - **Secure Login System**: Email and password validation with real-time error checking
 - **User Registration**: Complete signup form with password strength indicator
 - **Session Management**: Remember me functionality and social login options
 
 ### 🛒 **Advanced Order System**
+
 - **Service Selection**: Interactive service cards with visual feedback
 - **Custom Order Forms**: Comprehensive form with specifications, measurements, and requirements
 - **Design Preview**: Built-in mockup generator with upload functionality
@@ -24,6 +27,7 @@ A comprehensive web platform for a print and design business offering custom pri
 - **Order Summary**: Live updating summary with estimated totals
 
 ### ✨ **Design Mockup Tool**
+
 - **Visual Design Interface**: Upload images and add custom text
 - **Multiple Mockup Templates**: T-shirt, mug, flyer, and car templates
 - **Text Customization**: Font size, color, and draggable positioning
@@ -77,6 +81,31 @@ Perfect for printing businesses looking to establish a professional online prese
 
 ---
 
-This description highlights the key features, technologies, and business value of your web application, making it attractive for GitHub visitors and potential users.# 
+This description highlights the key features, technologies, and business value of your web application, making it attractive for GitHub visitors and potential users.#
 
 Print &amp; design web app: 12+ services, user accounts, custom orders with real-time pricing, design mockup tool, responsive design. Complete business solution for printing companies with order management and visual customization features.
+
+
+# How to run project locally
+
+Project has 2 sides:
+
+1. Client - targe
+2. Server - server
+
+You would need to kick start both to work
+
+**Client(target)**
+
+To run the client side, install live server, then after installing live server. Start thhe live server by right clicking any free space in the LOG-IN.html file and selecting open with live server from the list of drop down
+
+
+**Server**
+To run the server, navigate into the server directory in the terminal, when in the directory type the command
+"npm run dev", this will kick start the nodemon node_module
+
+**Note:** If it is the first time running the project, you would have to install the dependencies, by running "npm install". After this there is no need to install on subsequent running of the system
+
+When you are done with this, the project should run perfectly without any issues
+
+**Enjoy!!!🥳🥳**
