@@ -1,0 +1,30 @@
+{
+  "name": "target",
+  "version": "1.0.0",
+  "description": "A comprehensive web platform for a print and design business offering custom printing services including embroidery, DTF printing, car branding, mug design, and more. Built with modern HTML, CSS, and JavaScript.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "Hertzgroup12"
+  },
+  "keywords": [
+    "start"
+  ],
+  "author": "Hertzgroup12",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.1",
+    "node-fetch": "^3.3.2",
+    "nodemon": "^3.1.10"
+  }
+}

@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Account</title>
+    <link rel="stylesheet" href="./styles/signup.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -87,6 +89,43 @@
             font-size: 13px;
             margin-top: 5px;
             display: none;
+        }
+        
+        /* Password Toggle Styles */
+        .password-input-container {
+            position: relative;
+        }
+        
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 16px;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            z-index: 2;
+        }
+        
+        .toggle-password:hover {
+            color: #333;
+        }
+        
+        .eye-icon {
+            font-size: 16px;
+            width: 20px;
+            text-align: center;
+            color: #666;
+        }
+        
+        .toggle-password:hover .eye-icon {
+            color: #333;
         }
         
         .form-group.error .error-message {
@@ -177,6 +216,18 @@
 </head>
 <body>
     <div class="container">
+        <!-- Modal -->
+        <div class="modal" id="modal">
+            <div class="modal-content">
+                <span class="close" id="close" onclick={closeModal()}>&times;</span>
+                <p id="modal_message"></p>
+                <!-- Spinner Container -->
+                <div class="spinner-container" id="spinner">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+        </div>
+
         <form class="signup-form" id="signupForm">
             <div class="logo">
                 <h1>Create Account</h1>
@@ -197,7 +248,12 @@
             
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" placeholder="Create a password">
+                <div class="password-input-container">
+                    <input type="password" id="password" placeholder="Create a password">
+                    <span class="toggle-password" onclick="togglePasswordVisibility('password')">
+                        <i class="eye-icon fas fa-eye"></i>
+                    </span>
+                </div>
                 <div class="password-strength">
                     <div class="password-strength-bar" id="passwordStrength"></div>
                 </div>
@@ -206,7 +262,12 @@
             
             <div class="form-group">
                 <label for="confirmPassword">Confirm Password</label>
-                <input type="password" id="confirmPassword" placeholder="Confirm your password">
+                <div class="password-input-container">
+                    <input type="password" id="confirmPassword" placeholder="Confirm your password">
+                    <span class="toggle-password" onclick="togglePasswordVisibility('confirmPassword')">
+                        <i class="eye-icon fas fa-eye"></i>
+                    </span>
+                </div>
                 <div class="error-message">Passwords do not match</div>
             </div>
             
@@ -215,89 +276,30 @@
                 <label for="agreeTerms">I agree to the <a href="#">Terms of Service</a> and <a href="">Privacy Policy</a></label>
             </div>
             
-            <a href="file:///D:/webdev/oder%20page.html"><button type="submit" class="btn" >Create Account</button></a>
+            <button type="submit" class="btn" >Create Account</button>
             
             <div class="login-link">
-                Already have an account? <a href="file:///D:/webdev/LOG-IN.html">Log in</a>
+                Already have an account? <a href="./LOG-IN.html">Log in</a>
             </div>
         </form>
     </div>
 
     <script>
-        document.getElementById('signupForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        function togglePasswordVisibility(fieldId) {
+            const passwordField = document.getElementById(fieldId);
+            const eyeIcon = document.querySelector(`#${fieldId} + .toggle-password .eye-icon`);
             
-            // Reset previous errors
-            const formGroups = document.querySelectorAll('.form-group');
-            formGroups.forEach(group => {
-                group.classList.remove('error');
-            });
-            
-            let isValid = true;
-            
-            // Validate full name
-            const fullName = document.getElementById('fullName').value.trim();
-            if (fullName === '') {
-                document.querySelector('#fullName').parentElement.classList.add('error');
-                isValid = false;
-            }
-            
-            // Validate email
-            const email = document.getElementById('email').value.trim();
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                document.querySelector('#email').parentElement.classList.add('error');
-                isValid = false;
-            }
-            
-            // Validate password
-            const password = document.getElementById('password').value;
-            if (password.length < 8) {
-                document.querySelector('#password').parentElement.classList.add('error');
-                isValid = false;
-            }
-            
-            // Validate confirm password
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            if (password !== confirmPassword) {
-                document.querySelector('#confirmPassword').parentElement.classList.add('error');
-                isValid = false;
-            }
-            
-            // Validate terms agreement
-            const agreeTerms = document.getElementById('agreeTerms').checked;
-            if (!agreeTerms) {
-                alert('Please agree to the Terms of Service and Privacy Policy');
-                isValid = false;
-            }
-            
-            if (isValid) {
-                alert('Account created successfully!');
-                // In a real application, you would submit the form to a server here
-            }
-        });
-        
-        // Password strength indicator
-        document.getElementById('password').addEventListener('input', function() {
-            const password = this.value;
-            const strengthBar = document.getElementById('passwordStrength');
-            let strength = 0;
-            
-            if (password.length >= 8) strength += 25;
-            if (/[A-Z]/.test(password)) strength += 25;
-            if (/[0-9]/.test(password)) strength += 25;
-            if (/[^A-Za-z0-9]/.test(password)) strength += 25;
-            
-            strengthBar.style.width = strength + '%';
-            
-            if (strength < 50) {
-                strengthBar.style.backgroundColor = '#e74c3c';
-            } else if (strength < 75) {
-                strengthBar.style.backgroundColor = '#f39c12';
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
             } else {
-                strengthBar.style.backgroundColor = '#2ecc71';
+                passwordField.type = 'password';
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
             }
-        });
+        }
     </script>
+    <script src="logic/signup.js"></script>
 </body>
 </html>
