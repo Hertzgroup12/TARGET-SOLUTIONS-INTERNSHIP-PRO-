@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embroidery Service</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            color: red;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        .back-btn {
+            display: inline-block;
+            background: red;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+            background: darkred;
+        }
+
+        .service-detail {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 40px;
+        }
+
+        .service-header {
+            background: red;
+            padding: 30px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .service-header i {
+            font-size: 3rem;
+        }
+
+        .service-header h2 {
+            font-size: 2.5rem;
+        }
+
+        .service-content {
+            padding: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .service-description h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .service-description p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .features {
+            list-style-type: none;
+            margin: 25px 0;
+        }
+
+        .features li {
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+
+        .features li:last-child {
+            border-bottom: none;
+        }
+
+        .features i {
+            color: red;
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .gallery-item {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.03);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-caption {
+            padding: 10px;
+            background: #f9f9f9;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .process-section {
+            background: #f9f9f9;
+            padding: 40px;
+            border-radius: 15px;
+            margin-top: 40px;
+        }
+
+        .process-section h3 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .process-step {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .process-step i {
+            font-size: 2.5rem;
+            color: red;
+            margin-bottom: 15px;
+        }
+
+        .process-step h4 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .process-step p {
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .cta-section {
+            background: #f9f9f9;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .cta-section h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .cta-section p {
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        .btn {
+            display: inline-block;
+            background: red;
+            color: white;
+            padding: 15px 35px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+            background: darkred;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-item i {
+            font-size: 1.2rem;
+            color: red;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #333;
+            margin-top: 40px;
+            border-top: 1px solid #eee;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .service-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .service-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Embroidery Service</h1>
+            <p>Professional embroidery services for uniforms, corporate wear, and promotional items</p>
+            <a href="javascript:history.back()" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Services
+            </a>
+        </header>
+
+        <div class="service-detail">
+            <div class="service-header">
+                <i class="fas fa-vest"></i>
+                <h2>Embroidery</h2>
+            </div>
+            
+            <div class="service-content">
+                <div class="service-description">
+                    <h3>Professional Embroidery Services</h3>
+                    <p>Our professional embroidery service delivers high-quality, durable stitching that adds a touch of class to any garment or accessory. Using state-of-the-art embroidery machines and premium threads, we create crisp, clean designs that stand the test of time.</p>
+                    
+                    <p>Whether you need corporate logos on uniforms, team names on sports apparel, or custom designs on promotional items, our embroidery service provides the perfect solution for professional branding and personalization.</p>
+                    
+                    <h3>Key Features</h3>
+                    <ul class="features">
+                        <li><i class="fas fa-check"></i> Logo & Text Embroidery with Precision Stitching</li>
+                        <li><i class="fas fa-check"></i> Extensive Thread Color Selection</li>
+                        <li><i class="fas fa-check"></i> Apparel, Caps, Bags & Accessories</li>
+                        <li><i class="fas fa-check"></i> Professional Digitizing Services</li>
+                        <li><i class="fas fa-check"></i> High-Quality, Durable Results</li>
+                        <li><i class="fas fa-check"></i> Quick Turnaround Times</li>
+                        <li><i class="fas fa-check"></i> Bulk Order Discounts</li>
+                        <li><i class="fas fa-check"></i> Free Design Consultation</li>
+                    </ul>
+                </div>
+                
+                <div class="gallery">
+                    <div class="gallery-item">
+                        <img src="IMG-20251030-WA0014.jpg" alt="Embroidery Sample 1">
+                        <div class="gallery-caption"><strong>BADGES</strong></div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAQABADASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmQn//Z" alt="Embroidery Sample 2">
+                        <div class="gallery-caption">ASCENSION CONGREGATION</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAQABADASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmQn//Z" alt="Embroidery Sample 3">
+                        <div class="gallery-caption">LIGHTEDAY SCOALETO</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAQABADASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmQn//Z" alt="Embroidery Sample 4">
+                        <div class="gallery-caption">eXtracare 22K4P48T02</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="process-section">
+            <h3>Our Embroidery Process</h3>
+            <div class="process-steps">
+                <div class="process-step">
+                    <i class="fas fa-file-upload"></i>
+                    <h4>Design Submission</h4>
+                    <p>Submit your logo or design in any format. Our team will review and prepare it for embroidery.</p>
+                </div>
+                <div class="process-step">
+                    <i class="fas fa-magic"></i>
+                    <h4>Digitizing</h4>
+                    <p>We convert your design into an embroidery file that our machines can read and stitch accurately.</p>
+                </div>
+                <div class="process-step">
+                    <i class="fas fa-palette"></i>
+                    <h4>Thread Selection</h4>
+                    <p>Choose from our extensive color palette to match your brand colors or design requirements.</p>
+                </div>
+                <div class="process-step">
+                    <i class="fas fa-tshirt"></i>
+                    <h4>Production</h4>
+                    <p>Our state-of-the-art embroidery machines create your design with precision and consistency.</p>
+                </div>
+                <div class="process-step">
+                    <i class="fas fa-check-circle"></i>
+                    <h4>Quality Control</h4>
+                    <p>Every embroidered item undergoes thorough inspection to ensure the highest quality standards.</p>
+                </div>
+                <div class="process-step">
+                    <i class="fas fa-shipping-fast"></i>
+                    <h4>Delivery</h4>
+                    <p>Your finished products are carefully packaged and delivered on time, ready for use.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <h3>Ready to Embroider Your Designs?</h3>
+            <p>Contact us today to discuss your embroidery needs. Our team is ready to help you create professional, high-quality embroidered items that represent your brand perfectly.</p>
+            <a href="#" class="btn">
+                <i class="fas fa-phone"></i> Contact Us Now
+            </a>
+        </div>
+
+        <footer>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>(055) 456-8528</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>info@targetsolution.com</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Target Solution, Ghana</span>
+                </div>
+            </div>
+            <p>&copy; 2025 Print & Design Services. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>
